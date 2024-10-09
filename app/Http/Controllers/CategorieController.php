@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Categorie;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class CategorieController extends Controller
 {
@@ -16,12 +17,12 @@ class CategorieController extends Controller
         return view('categorie.index', ['categories' => $categories]);;
     }
 
-    /**
+    /** 
      * Show the form for creating a new resource.
      */
     public function create()
     {
-        //
+        return view('categorie.new');
     }
 
     /**
@@ -29,7 +30,23 @@ class CategorieController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+        // Validate the input
+        $request->validate([
+            'name' => 'required|max:80',
+            'description' => 'required'
+        ]);
+
+        // Create a new category
+        $category = new Categorie();
+        $category->name = $request->input('name');
+        $category->description = $request->input('description');
+        $category->save();
+
+        // Redirect to the categories list or show a success message
+        return redirect()->route('categories.index')
+                        ->with('success', 'Category created successfully.');
+        //return view ('categories.index', ['category' => $category]);
     }
 
     /**
