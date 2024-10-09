@@ -62,7 +62,9 @@ class CategorieController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $category = Categorie::find($id);
+
+        return view('categorie.edit', ['category' => $category]);
     }
 
     /**
@@ -70,7 +72,21 @@ class CategorieController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $request->validate([
+            'name' => 'required|max:80',
+            'description' => 'required'
+        ]);
+
+        // Create a new category
+        $category = Categorie::find($id);
+        $category->name = $request->input('name');
+        $category->description = $request->input('description');
+        $category->save();
+
+        // Redirect to the categories list or show a success message
+        return redirect()->route('categories.index')
+                        ->with('success', 'Category updated successfully.');
+        //return view ('categories.index', ['category' => $category]);
     }
 
     /**

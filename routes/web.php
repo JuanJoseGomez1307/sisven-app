@@ -20,6 +20,8 @@ Route::middleware('auth')->group(function () {
     Route::post('/categories', [CategorieController::class, 'store'])->name('categories.store');
     Route::get('/categories/create', [CategorieController::class, 'create'])->name('categories.create');
     Route::delete('/categories/{categorie}', [CategorieController::class, 'destroy'])->name('categories.destroy');
+    Route::put('/categories/{category}', [CategorieController::class, 'update'])->name('categories.update');
+    Route::get('/categories/{category}/edit', [CategorieController::class, 'edit'])->name('categories.edit');
 });
 
 require __DIR__.'/auth.php';
