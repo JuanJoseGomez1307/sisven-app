@@ -37,8 +37,12 @@
                                         <td>{{ $category->name }}</td>
                                         <td>{{ $category->description }}</td>
                                         <td>
-                                            <a href="#" class="btn btn-sm btn-primary">Edit</a>
-                                            <a href="#" class="btn btn-sm btn-danger">Delete</a>
+                                            <form action="{{ route('categories.destroy', ['categorie' => $category->id]) }}"
+                                                method="POST" style="display: inline-block">
+                                                @method('delete')
+                                                @csrf
+                                                <input class="btn btn-danger" type ="submit" value="Delete">
+                                            </form>
                                         </td>
                                     </tr>
                                 @endforeach

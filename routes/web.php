@@ -19,6 +19,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/categories', [CategorieController::class, 'index'])->name('categories.index');
     Route::post('/categories', [CategorieController::class, 'store'])->name('categories.store');
     Route::get('/categories/create', [CategorieController::class, 'create'])->name('categories.create');
+    Route::delete('/categories/{categorie}', [CategorieController::class, 'destroy'])->name('categories.destroy');
 });
 
 require __DIR__.'/auth.php';
